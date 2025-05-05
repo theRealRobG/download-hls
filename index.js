@@ -134,8 +134,15 @@ function getCombinedMediaFile(urls) {
 function updateFileTypeHint(downloadUrls) {
     if (downloadUrls.length == 0) return;
     const lastUrl = downloadUrls[downloadUrls.length - 1];
-    const extension = getFileExtension(lastUrl);
+    let extension = getFileExtension(lastUrl);
     if (extension) {
+        switch (extension) {
+            case 'm4s':
+            case 'm4v':
+            case 'm4a':
+                // Normalize these to mp4 since the combined file will be.
+                extension = 'mp4';
+        }
         fileTypeHint = extension;
     }
 }
