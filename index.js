@@ -6,9 +6,9 @@ const argv = require('minimist')(process.argv.slice(2));
 const help = argv.help;
 if (help) {
     const helpMessage = `
-    Simple command line tool for reading emsg boxes in MP4.
+    Simple script to download media from HLS playlist and concatenate into a file
 
-    Available commands:
+    Available arguments:
       --help                  Show this help description.
 
       --url <remote_url>      Specify a remote URL for an HLS media playlist. This cannot
