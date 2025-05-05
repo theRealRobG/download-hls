@@ -82,8 +82,10 @@ function getSegmentUrlsFromPlaylist(playlist) {
                 // This one will require me to save multiple files (probably to a directory).
                 throw new Error('Currently no support for playlists containing discontinuities');
             } else if (line.startsWith('#EXT-X-MAP')) {
-                // This one should be quite do-able and what I will do next.
-                throw new Error('Currently no support for parsing out EXT-X-MAP segment');
+                const uri = getUriFromMap(line.trim());
+                if (uri) {
+                    urls.initUrl = uri;
+                }
             }
         } else {
             // URL line
@@ -93,6 +95,18 @@ function getSegmentUrlsFromPlaylist(playlist) {
         }
     }
     return urls;
+}
+
+/**
+ * @param {string} mapLine
+ * @returns {string?}
+ */
+function getUriFromMap(mapLine) {
+    const match = mapLine.match(/URI="([^"\n\r]*)"/);
+    const uri = match[1];
+    if (uri) {
+        return uri;
+    }
 }
 
 /**
