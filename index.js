@@ -76,6 +76,8 @@ function getSegmentUrlsFromPlaylist(playlist) {
                 throw new Error('Playlist file was multivariant (MVP) but must be media');
             } else if (line.startsWith('#EXT-X-KEY')) {
                 throw new Error('Currently no support for encrypted content');
+            } else if (line.startsWith('#EXT-X-BYTERANGE')) {
+                throw new Error('Currently no support for byterange addressing on segments');
             } else if (line.trim() == '#EXT-X-DISCONTINUITY') {
                 // This one will require me to save multiple files (probably to a directory).
                 throw new Error('Currently no support for playlists containing discontinuities');
